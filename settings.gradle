@@ -1,0 +1,5 @@
+rootProject.name = 'skillhub-backend'
+
+include('app', 'app-specs')
+include 'app-db'
+

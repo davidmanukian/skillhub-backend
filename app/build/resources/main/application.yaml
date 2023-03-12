@@ -1,0 +1,47 @@
+spring:
+  main:
+    banner-mode: off
+  servlet.multipart.max-file-size: 128MB
+  servlet.multipart.max-request-size: 128MB
+  jpa:
+    database: POSTGRESQL
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/skillhub
+    username: root
+    password: password
+  sql:
+    init:
+      platform: postgres
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+server:
+  port: 8080
+  servlet:
+    context-path: /SkillHub
+  tomcat:
+    accesslog:
+      enabled: true
+      directory: /dev
+      prefix: stdout
+      file-date-format:
+      suffix:
+      pattern: "%{yyyy-MM-dd HH:mm:ss.SSS}t log_type=tomcat-access-logs remote_client=%{X-Forwarded-For}i remote_elb=%h elb_trace_id=%{X-Amzn-Trace-Id}i thread=%I request_method=%m request_url=%U request_id=%{Nord-Request-Id}i client_id=%{Nord-Client-Id}i processing_time=%D response_time=%F response_bytes=%b response_status=%s connection_status=%X"
+    connection-timeout: 60000
+    keep-alive-timeout: 60000
+    max-connections: 8192
+    max-keep-alive-requests: 100
+    threads:
+      min-spare: 10
+      max: 200

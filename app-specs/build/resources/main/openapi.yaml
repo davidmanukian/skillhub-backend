@@ -1,0 +1,795 @@
+openapi: 3.0.3
+info:
+  title: SkillHub API
+  version: 1.0.0
+  description: This API has Operations on Resources related to SkillHub.
+servers:
+  - url: https://localhost:8080/SkillHub
+security:
+  - jwt: [ ]
+paths:
+  /profile/all:
+    get:
+      security:
+        - jwt: [ ]
+      summary: Fetch all profiles
+      description: Fetch all profiles
+      operationId: getProfiles
+      parameters:
+        - name: principal
+          description: "Security Principal"
+          in: query
+          required: true
+          schema:
+            $ref: "#/components/schemas/MyPrincipal"
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Profile'
+        400:
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        401:
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        500:
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        502:
+          $ref: '#/components/responses/BadGatewayErrorResponse'
+        504:
+          $ref: '#/components/responses/GatewayTimeoutErrorResponse'
+      tags:
+        - profile
+  /profile:
+    get:
+      security:
+        - jwt: [ ]
+      summary: Fetch profile of the current user
+      description: Fetch profile of the current user
+      operationId: getProfile
+      parameters:
+        - name: principal
+          description: "Security Principal"
+          in: query
+          required: true
+          schema:
+            $ref: "#/components/schemas/MyPrincipal"
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+        400:
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        401:
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        500:
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        502:
+          $ref: '#/components/responses/BadGatewayErrorResponse'
+        504:
+          $ref: '#/components/responses/GatewayTimeoutErrorResponse'
+      tags:
+        - profile
+    post:
+      summary: Update a profile
+      description: Update a profile
+      operationId: updateProfile
+      requestBody:
+        description: Profile payload
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Profile'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+        400:
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        401:
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        500:
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        502:
+          $ref: '#/components/responses/BadGatewayErrorResponse'
+        504:
+          $ref: '#/components/responses/GatewayTimeoutErrorResponse'
+      tags:
+        - profile
+  /profile/image:
+    post:
+      summary: Upload a profile image
+      description: Upload a profile image
+      operationId: uploadProfileImage
+      parameters:
+        - name: principal
+          description: "Security Principal"
+          in: query
+          required: true
+          schema:
+            $ref: "#/components/schemas/MyPrincipal"
+      requestBody:
+        description: "Image"
+        content:
+          multipart/form-data:
+            schema:
+              properties:
+                file:
+                  type: object
+      responses:
+        200:
+          description: Success
+        400:
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        401:
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        500:
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        502:
+          $ref: '#/components/responses/BadGatewayErrorResponse'
+        504:
+          $ref: '#/components/responses/GatewayTimeoutErrorResponse'
+      tags:
+        - profile
+  /authentication:
+    post:
+      summary: signIn
+      description: signIn
+      operationId: signIn
+      requestBody:
+        description: SignIn credentials
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthenticationPayload'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthenticationResponse'
+        400:
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        401:
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        500:
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        502:
+          $ref: '#/components/responses/BadGatewayErrorResponse'
+        504:
+          $ref: '#/components/responses/GatewayTimeoutErrorResponse'
+      tags:
+        - authentication
+  /registration:
+    post:
+      summary: register new user
+      description: register new user
+      operationId: register
+      requestBody:
+        description: register payload
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegistrationPayload'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegistrationResponse'
+        400:
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        401:
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        500:
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        502:
+          $ref: '#/components/responses/BadGatewayErrorResponse'
+        504:
+          $ref: '#/components/responses/GatewayTimeoutErrorResponse'
+      tags:
+        - registration
+  /assessment:
+    post:
+      summary: save new assessment
+      description: save new assessment
+      operationId: createAssessment
+      parameters:
+        - name: principal
+          description: "Security Principal"
+          in: query
+          required: true
+          schema:
+            $ref: "#/components/schemas/MyPrincipal"
+      requestBody:
+        description: assessment payload
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Assessment'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Assessment'
+        400:
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        401:
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        500:
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        502:
+          $ref: '#/components/responses/BadGatewayErrorResponse'
+        504:
+          $ref: '#/components/responses/GatewayTimeoutErrorResponse'
+      tags:
+        - assessment
+  /assessment/all:
+    get:
+      summary: get all assessment
+      description: get all assessment
+      operationId: getAllAssessments
+      parameters:
+        - name: principal
+          description: "Security Principal"
+          in: query
+          required: true
+          schema:
+            $ref: "#/components/schemas/MyPrincipal"
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Assessment'
+        400:
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        401:
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        500:
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        502:
+          $ref: '#/components/responses/BadGatewayErrorResponse'
+        504:
+          $ref: '#/components/responses/GatewayTimeoutErrorResponse'
+      tags:
+        - assessment
+  /assessment/review:
+    get:
+      summary: get assessments to review
+      description: get assessments to review
+      operationId: getAssessmentsToReview
+      parameters:
+        - name: principal
+          description: "Security Principal"
+          in: query
+          required: true
+          schema:
+            $ref: "#/components/schemas/MyPrincipal"
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PreviewAssessment'
+        400:
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        401:
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        500:
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        502:
+          $ref: '#/components/responses/BadGatewayErrorResponse'
+        504:
+          $ref: '#/components/responses/GatewayTimeoutErrorResponse'
+      tags:
+        - assessment
+  /employee/evaluation:
+    post:
+      summary: create employee evaluation
+      description: create employee evaluation
+      operationId: createEmployeeEvaluation
+      parameters:
+        - name: principal
+          description: "Security Principal"
+          in: query
+          required: true
+          schema:
+            $ref: "#/components/schemas/MyPrincipal"
+      requestBody:
+        description: employee evaluation payload
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeeEvaluation'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeEvaluation'
+        400:
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        401:
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        500:
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        502:
+          $ref: '#/components/responses/BadGatewayErrorResponse'
+        504:
+          $ref: '#/components/responses/GatewayTimeoutErrorResponse'
+      tags:
+        - employeeEvaluation
+    get:
+      summary: get employee evaluation that is PENDING
+      description: get employee evaluation that is PENDING
+      operationId: getEmployeeEvaluations
+      parameters:
+        - name: principal
+          description: "Security Principal"
+          in: query
+          required: true
+          schema:
+            $ref: "#/components/schemas/MyPrincipal"
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EmployeeEvaluation'
+        400:
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        401:
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        500:
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        502:
+          $ref: '#/components/responses/BadGatewayErrorResponse'
+        504:
+          $ref: '#/components/responses/GatewayTimeoutErrorResponse'
+      tags:
+        - employeeEvaluation
+    put:
+      summary: update employee evaluation
+      description: update employee evaluation that
+      operationId: updateEmployeeEvaluations
+      parameters:
+        - name: principal
+          description: "Security Principal"
+          in: query
+          required: true
+          schema:
+            $ref: "#/components/schemas/MyPrincipal"
+      requestBody:
+        description: employee evaluation payload
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeeEvaluation'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeEvaluation'
+        400:
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        401:
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        500:
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        502:
+          $ref: '#/components/responses/BadGatewayErrorResponse'
+        504:
+          $ref: '#/components/responses/GatewayTimeoutErrorResponse'
+      tags:
+        - employeeEvaluation
+  /employee/evaluation/all:
+    get:
+      summary: get ALL employee evaluations
+      description: get employee evaluation
+      operationId: getAllEmployeeEvaluations
+      parameters:
+        - name: principal
+          description: "Security Principal"
+          in: query
+          required: true
+          schema:
+            $ref: "#/components/schemas/MyPrincipal"
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EmployeeEvaluation'
+        400:
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        401:
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        500:
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        502:
+          $ref: '#/components/responses/BadGatewayErrorResponse'
+        504:
+          $ref: '#/components/responses/GatewayTimeoutErrorResponse'
+      tags:
+        - employeeEvaluation
+  /employee/perfectMatch:
+    post:
+      summary: get ALL employees sorted through perfectMatch algorithm
+      description: get ALL employees sorted through perfectMatch algorithm
+      operationId: getAllEmployeeByPerfectMatch
+      parameters:
+        - name: principal
+          description: "Security Principal"
+          in: query
+          required: true
+          schema:
+            $ref: "#/components/schemas/MyPrincipal"
+      requestBody:
+        description: perfect match payload
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PerfectMatch'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EmployeeCoefficient'
+        400:
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        401:
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        500:
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        502:
+          $ref: '#/components/responses/BadGatewayErrorResponse'
+        504:
+          $ref: '#/components/responses/GatewayTimeoutErrorResponse'
+      tags:
+        - employeePerfectMatch
+  /employee/recalculateCoefficient:
+    get:
+      summary: recalculate coefficient for each employee
+      description: recalculate coefficient for each employee
+      operationId: recalculateCoefficient
+      parameters:
+        - name: principal
+          description: "Security Principal"
+          in: query
+          required: true
+          schema:
+            $ref: "#/components/schemas/MyPrincipal"
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: string
+        400:
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        401:
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        500:
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        502:
+          $ref: '#/components/responses/BadGatewayErrorResponse'
+        504:
+          $ref: '#/components/responses/GatewayTimeoutErrorResponse'
+      tags:
+        - employeePerfectMatch
+  /project:
+    post:
+      summary: create a new project
+      description: create a new project
+      operationId: createNewProject
+      parameters:
+        - name: principal
+          description: "Security Principal"
+          in: query
+          required: true
+          schema:
+            $ref: "#/components/schemas/MyPrincipal"
+      requestBody:
+        description: project payload
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Project'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        400:
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        401:
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        500:
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        502:
+          $ref: '#/components/responses/BadGatewayErrorResponse'
+        504:
+          $ref: '#/components/responses/GatewayTimeoutErrorResponse'
+      tags:
+        - projectManagement
+    get:
+      summary: get ALL projects
+      description: get ALL projects
+      operationId: getAllProjects
+      parameters:
+        - name: principal
+          description: "Security Principal"
+          in: query
+          required: true
+          schema:
+            $ref: "#/components/schemas/MyPrincipal"
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Project'
+        400:
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        401:
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        500:
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        502:
+          $ref: '#/components/responses/BadGatewayErrorResponse'
+        504:
+          $ref: '#/components/responses/GatewayTimeoutErrorResponse'
+      tags:
+        - projectManagement
+components:
+  securitySchemes:
+    jwt:
+      type: http
+      scheme: basic
+      in: query
+      bearerFormat: JWT
+  #  headers:
+  #  parameters:
+  responses:
+    BadRequestErrorResponse:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnauthorizedErrorResponse:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFoundErrorResponse:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    InternalServerErrorResponse:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    MyPrincipal:
+      type: object
+      properties:
+        name:
+          type: string
+    Error:
+      type: object
+      properties:
+        errorCode:
+          type: string
+        errorMessage:
+          type: string
+    Assessment:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        assessmentFor:
+          $ref: '#/components/schemas/Profile'
+        assessmentPeople:
+          type: array
+          items:
+            $ref: '#/components/schemas/Profile'
+    Profile:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        firstName:
+          type: string
+        lastName:
+          type: string
+        image:
+          $ref: '#/components/schemas/Image'
+        team:
+          type: string
+        position:
+          type: string
+        about:
+          type: string
+        skills:
+          type: array
+          items:
+            $ref: '#/components/schemas/Skill'
+        certificates:
+          type: array
+          items:
+            $ref: '#/components/schemas/Certificate'
+        username:
+          type: string
+    Skill:
+      type: object
+      properties:
+        name:
+          type: string
+        score:
+          type: number
+    Image:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+        data:
+          type: string
+          format: byte
+    Certificate:
+      type: object
+      properties:
+        name:
+          type: string
+        issueMonth:
+          type: string
+        issueYear:
+          type: string
+        expirationMonth:
+          type: string
+        expirationYear:
+          type: string
+    AuthenticationPayload:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+    AuthenticationResponse:
+      type: object
+      properties:
+        token:
+          type: string
+    RegistrationPayload:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+    RegistrationResponse:
+      type: object
+      properties:
+        token:
+          type: string
+    PreviewAssessment:
+      type: object
+      properties:
+        username:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        skills:
+          type: array
+          items:
+            $ref: '#/components/schemas/Skill'
+    EmployeeEvaluation:
+      type: object
+      properties:
+        assessmentId:
+          type: integer
+          format: int32
+        usernameFor:
+          type: string
+        usernameFrom:
+          type: string
+        usernameCreated:
+          type: string
+        status:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        skills:
+          type: array
+          items:
+            $ref: '#/components/schemas/Skill'
+    Project:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+        skills:
+          type: array
+          items:
+            type: string
+    PerfectMatch:
+      type: object
+      properties:
+        skills:
+          type: array
+          items:
+            type: string
+    EmployeeCoefficient:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        username:
+          type: string
+        coefficient:
+          type: number
+
+
