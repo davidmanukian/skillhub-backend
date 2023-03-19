@@ -10,6 +10,7 @@ import org.skillhub.model.Profile;
 import org.skillhub.service.EmployeeCoefficientService;
 import org.skillhub.service.EmployeeEvaluationService;
 import org.skillhub.service.MatcherService;
+import org.skillhub.service.ProjectService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,6 +25,8 @@ public class EmployeeEvaluationController implements org.skillhub.api.EmployeeAp
 
   private final EmployeeEvaluationService employeeEvaluationService;
   private final MatcherService matcherService;
+
+  private final ProjectService projectService;
   private final EmployeeCoefficientService employeeCoefficientService;
 
   @Override
@@ -60,6 +63,12 @@ public class EmployeeEvaluationController implements org.skillhub.api.EmployeeAp
   public ResponseEntity<List<EmployeeCoefficient>> getAllEmployeeByPerfectMatch(Principal principal, PerfectMatch perfectMatch) {
     List<EmployeeCoefficient> employeeCoefficients = matcherService.perfectMatch(perfectMatch);
     return new ResponseEntity<>(employeeCoefficients, HttpStatus.OK);
+  }
+
+  @Override
+  public ResponseEntity<List<String>> fetchAllSkills(Principal principal) {
+    List<String> skills = projectService.fetchAllSkills();
+    return ResponseEntity.ok(skills);
   }
 
   @Override

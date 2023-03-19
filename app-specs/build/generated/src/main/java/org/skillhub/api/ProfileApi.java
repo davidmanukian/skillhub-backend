@@ -30,7 +30,7 @@ import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-03-09T00:13:10.588332+04:00[Asia/Yerevan]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-03-14T19:45:14.512692+04:00[Asia/Yerevan]")
 @Validated
 @Tag(name = "profile", description = "the profile API")
 public interface ProfileApi {

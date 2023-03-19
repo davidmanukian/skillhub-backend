@@ -23,7 +23,7 @@ import javax.annotation.Generated;
 @lombok.AllArgsConstructor
 @com.fasterxml.jackson.annotation.JsonIgnoreProperties(ignoreUnknown = true)
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-03-09T00:13:10.588332+04:00[Asia/Yerevan]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-03-14T19:45:14.512692+04:00[Asia/Yerevan]")
 public class PerfectMatch {
 
   @JsonProperty("skills")

@@ -32,7 +32,7 @@ import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-03-09T00:13:10.588332+04:00[Asia/Yerevan]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-03-14T19:45:14.512692+04:00[Asia/Yerevan]")
 @Validated
 @Tag(name = "employee", description = "the employee API")
 public interface EmployeeApi {
@@ -92,6 +92,64 @@ public interface EmployeeApi {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
                     String exampleString = "{ \"skills\" : [ { \"score\" : 6.027456183070403, \"name\" : \"name\" }, { \"score\" : 6.027456183070403, \"name\" : \"name\" } ], \"firstName\" : \"firstName\", \"lastName\" : \"lastName\", \"usernameCreated\" : \"usernameCreated\", \"usernameFor\" : \"usernameFor\", \"assessmentId\" : 0, \"usernameFrom\" : \"usernameFrom\", \"status\" : \"status\" }";
+                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                    break;
+                }
+            }
+        });
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
+
+
+    /**
+     * GET /employee/skills : fetch all skills
+     * fetch all skills
+     *
+     * @param principal Security Principal (required)
+     * @return Success (status code 200)
+     *         or Bad Request (status code 400)
+     *         or Unauthorized (status code 401)
+     *         or Internal Server Error (status code 500)
+     *         or  (status code 502)
+     *         or  (status code 504)
+     */
+    @Operation(
+        operationId = "fetchAllSkills",
+        summary = "fetch all skills",
+        tags = { "projectManagement" },
+        responses = {
+            @ApiResponse(responseCode = "200", description = "Success", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = String.class))
+            }),
+            @ApiResponse(responseCode = "400", description = "Bad Request", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = Error.class))
+            }),
+            @ApiResponse(responseCode = "401", description = "Unauthorized", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = Error.class))
+            }),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = Error.class))
+            }),
+            @ApiResponse(responseCode = "502", description = ""),
+            @ApiResponse(responseCode = "504", description = "")
+        },
+        security = {
+            @SecurityRequirement(name = "jwt")
+        }
+    )
+    @RequestMapping(
+        method = RequestMethod.GET,
+        value = "/employee/skills",
+        produces = { "application/json" }
+    )
+    default ResponseEntity<List<String>> fetchAllSkills(
+        @NotNull @Parameter(name = "principal", description = "Security Principal", required = true) @Valid java.security.Principal principal
+    ) {
+        getRequest().ifPresent(request -> {
+            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    String exampleString = "\"\"";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }

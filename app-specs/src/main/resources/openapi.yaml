@@ -512,6 +512,39 @@ paths:
           $ref: '#/components/responses/GatewayTimeoutErrorResponse'
       tags:
         - employeePerfectMatch
+  /employee/skills:
+    get:
+      summary: fetch all skills
+      description: fetch all skills
+      operationId: fetchAllSkills
+      parameters:
+        - name: principal
+          description: "Security Principal"
+          in: query
+          required: true
+          schema:
+            $ref: "#/components/schemas/MyPrincipal"
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        400:
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        401:
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        500:
+          $ref: '#/components/responses/InternalServerErrorResponse'
+        502:
+          $ref: '#/components/responses/BadGatewayErrorResponse'
+        504:
+          $ref: '#/components/responses/GatewayTimeoutErrorResponse'
+      tags:
+        - projectManagement
   /project:
     post:
       summary: create a new project

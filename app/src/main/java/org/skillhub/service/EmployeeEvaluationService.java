@@ -32,7 +32,7 @@ public class EmployeeEvaluationService {
 
   public EmployeeEvaluation updateEmployeeEvaluation(String username, EmployeeEvaluation employeeEvaluation) {
     Optional<EmployeeEvaluationEntity> employeeEvaluationEntity = employeeEvaluationRepository
-        .findByUsernameFromAndUsernameFor(employeeEvaluation.getUsernameFrom(), employeeEvaluation.getUsernameFor());
+        .findByUsernameFromAndUsernameForAndStatus(employeeEvaluation.getUsernameFrom(), employeeEvaluation.getUsernameFor(), "PENDING");
     EmployeeEvaluationEntity entity = employeeEvaluationEntity.orElseThrow();
     entity.setSkills(employeeEvaluation.getSkills());
     entity.setStatus("COMPLETED");

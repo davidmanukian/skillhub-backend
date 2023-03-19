@@ -16,5 +16,5 @@ public interface EmployeeEvaluationRepository extends JpaRepository<EmployeeEval
   List<EmployeeEvaluationEntity> findAllByUsernameCreated(String username);
 
   List<EmployeeEvaluationEntity> findAllByUsernameFor(String username);
-  Optional<EmployeeEvaluationEntity> findByUsernameFromAndUsernameFor(String usernameFrom, String usernameFor);
+  Optional<EmployeeEvaluationEntity> findByUsernameFromAndUsernameForAndStatus(String usernameFrom, String usernameFor, String status);
 }
